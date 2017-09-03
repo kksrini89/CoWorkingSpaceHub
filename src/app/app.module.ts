@@ -4,14 +4,17 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-
+import { SpacePage } from './../pages/space/space';
+import { AboutPage } from './../pages/about/about';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CoworkingmapProvider } from '../providers/coworkingmap';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    SpacePage,
+    AboutPage
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,9 @@ import { CoworkingmapProvider } from '../providers/coworkingmap';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    SpacePage,
+    AboutPage
   ],
   providers: [
     StatusBar,
