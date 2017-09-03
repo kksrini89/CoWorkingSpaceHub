@@ -1,6 +1,5 @@
-import { CoWorkingMap } from './../models/coworkingmap.interface';
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http'; //URLSearchParams
 import { Observable } from 'rxjs/Observable';
 // import { Observable } from 'rxjs/Rxjs';
 import 'rxjs/add/operator/map';
@@ -8,16 +7,17 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/Observable/throw';
 
 import { user_config } from './coworkingmap.config';
-import { CoWorkingSpace } from './../models/coworkingmapresult.interface';
 
 @Injectable()
 export class CoworkingmapProvider {
   url: string = 'https://coworkingmap.org/wp-json/jwt-auth/v1/token/';
   private token: string;
-  constructor(private http: Http) {
-    // this.getToken();
-  }
+  constructor(private http: Http) { }
 
+  /**
+   * Filtering workspace hub by Country
+   * @param countryName string
+   */
   getWorkingSpaceFilterByCountry(countryName: string): Observable<any[]> {
     let url = 'https://coworkingmap.org/wp-json/spaces';
     let header = new Headers();
@@ -28,13 +28,15 @@ export class CoworkingmapProvider {
       .catch(this.handleError);
   }
 
-  getWorkingSpaceFilterByCity(countryName: string, cityName: string): Observable<CoWorkingSpace[]> {
-    let url = `https://coworkingmap.org/wp-json/spaces/${countryName}`;
+  /**
+   * Filtering workspace hub by city
+   * @param countryName string
+   */
+  getWorkingSpaceFilterByCity(countryName: string, cityName: string): Observable<any[]> {
+    let url = `https://coworkingmap.org/wp-json/spaces/${countryName.toLowerCase()}/${cityName.toLowerCase()}`;
     let header = new Headers();
     header.append('Authorization', `Bearer ${this.token}`);
-    return this.http.get(`${url}/${cityName.toLowerCase()}`)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.get(url).map(this.extractData).catch(this.handleError);
   }
 
   /**
@@ -50,7 +52,7 @@ export class CoworkingmapProvider {
    * Get token from CoWorkingMap API
    */
   getToken(): Observable<any> {
-    if (this.token === null || this.token === undefined) {      
+    if (this.token === null || this.token === undefined) {
       let url = this.url + '/?username=' + user_config.username + '&password=' + user_config.password;
       let header = new Headers();
       header.append('Content-Type', 'application/json');
@@ -58,9 +60,6 @@ export class CoworkingmapProvider {
       return this.http.post(url, options)
         .map(this.extractData);
     }
-    // else {
-    //   return this.token;
-    // }
   }
 
   private extractData(response: Response) {

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 
 import { CoWorkingSpace } from './../../models/coworkingmapresult.interface';
 import { CoworkingmapProvider } from './../../providers/coworkingmap';
 import { Subscription } from 'rxjs/Subscription';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-space',
   templateUrl: 'space.html',
@@ -20,7 +20,7 @@ export class SpacePage {
   }  
 
   ionViewWillLeave() {
-    this.spaceSubscription.unsubscribe();
+    // this.spaceSubscription.unsubscribe();
   }
 
   ionViewDidLoad() {
