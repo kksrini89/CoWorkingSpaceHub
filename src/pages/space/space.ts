@@ -17,24 +17,52 @@ export class SpacePage {
 
   constructor(public navCtrl: NavController, private loadingCtrl: LoadingController,
     public navParams: NavParams, private spaceService: CoworkingmapProvider) {
-  }  
-
-  ionViewWillLeave() {
-    // this.spaceSubscription.unsubscribe();
   }
 
-  ionViewDidLoad() {
-    this.loading = this.loadingCtrl.create();
+  ionViewWillEnter() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading places...'
+    });
     this.loading.present();
-    this.spaceService.getToken().subscribe(data => {
-      this.spaceService.setToken(data.token);
+
+    let token = this.spaceService.getToken();
+    if (token !== null && token !== undefined) {
       this.spaceSubscription = this.spaceService.getWorkingSpaceFilterByCountry('India')
         .subscribe(result => {
           this.loading.dismiss().then(data => {
             this.spaces = result;
           })
         });
-    });
+    } else {
+      this.spaceService.getTokenObservable().subscribe(data => {
+        this.spaceService.setToken(data.token);
+        this.spaceSubscription = this.spaceService.getWorkingSpaceFilterByCountry('India')
+          .subscribe(result => {
+            this.loading.dismiss().then(data => {
+              this.spaces = result;
+            })
+          });
+      });
+    }
+  }
+
+  ionViewWillLeave() {
+    this.spaces = [];
+    this.spaceSubscription.unsubscribe();
+  }
+
+  ionViewDidLoad() {
+    // this.loading = this.loadingCtrl.create();
+    // this.loading.present();
+    // this.spaceService.getToken().subscribe(data => {
+    //   this.spaceService.setToken(data.token);
+    //   this.spaceSubscription = this.spaceService.getWorkingSpaceFilterByCountry('India')
+    //     .subscribe(result => {
+    //       this.loading.dismiss().then(data => {
+    //         this.spaces = result;
+    //       })
+    //     });
+    // });
   }
 
 }
