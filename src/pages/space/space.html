@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -10,10 +10,10 @@
 </ion-header>
 
 
-<ion-content padding> 
+<ion-content color="secondary">
 
-  <ion-list>
-    <button ion-item *ngFor="let item of spaces">
+  <ion-list padding>
+    <button color="light" ion-item *ngFor="let item of spaces">
         {{ item.city }}
       </button>
   </ion-list>
