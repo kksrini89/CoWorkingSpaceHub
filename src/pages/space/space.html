@@ -10,7 +10,12 @@
 </ion-header>
 
 
-<ion-content color="secondary">
+<ion-content padding color="secondary">
+
+  <ion-searchbar padding [showCancelButton]="true" placeholder="Country" [(ngModel)]="searchInput" (ionInput)="OnInput($event)"
+    (ionCancel)="OnCancel($event)">
+
+  </ion-searchbar>
 
   <ion-list padding>
     <button color="light" ion-item *ngFor="let item of spaces">

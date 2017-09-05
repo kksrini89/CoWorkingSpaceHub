@@ -10,13 +10,24 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'page-space',
   templateUrl: 'space.html',
 })
-export class SpacePage {
+export class SpacePage {  
   private spaces: CoWorkingSpace[];
   private spaceSubscription: Subscription = new Subscription();
   private loading: Loading;
 
+  searchInput: string = 'india';
+
   constructor(public navCtrl: NavController, private loadingCtrl: LoadingController,
     public navParams: NavParams, private spaceService: CoworkingmapProvider) {
+  }
+
+  OnInput(event: any) {
+    let inputValue = event.target.value;
+    // console.log(inputValue);
+  }
+
+  OnCancel(event: any) {
+
   }
 
   ionViewWillEnter() {

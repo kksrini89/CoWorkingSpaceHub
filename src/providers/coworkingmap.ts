@@ -49,23 +49,19 @@ export class CoworkingmapProvider {
   }
 
   getToken(): string {
-    // if (this.token !== null || this.token !== undefined) {
     return this.token;
-    // }
   }
 
   /**
    * Get token from CoWorkingMap API
    */
   getTokenObservable(): Observable<any> {
-    // if (this.token === null || this.token === undefined) {
     let url = this.url + '/?username=' + user_config.username + '&password=' + user_config.password;
     let header = new Headers();
     header.append('Content-Type', 'application/json');
     let options = new RequestOptions({ headers: header });
     return this.http.post(url, options)
       .map(this.extractData);
-    // }
   }
 
   private extractData(response: Response) {
