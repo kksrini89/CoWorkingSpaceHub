@@ -1,38 +1,62 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading, IonicPage } from 'ionic-angular';
 
-import { CoWorkingSpace } from './../../models/coworkingmapresult.interface';
+// import { CoWorkingSpace } from './../../models/coworkingmapresult.interface';
 import { CoworkingmapProvider } from './../../providers/coworkingmap';
 import { Subscription } from 'rxjs/Subscription';
 
-// @IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-space',
   templateUrl: 'space.html',
 })
-export class SpacePage {  
-  private spaces: CoWorkingSpace[];
+export class SpacePage {
+  // private spaces: CoWorkingSpace[];
+  private spaces: any[];
   private spaceSubscription: Subscription = new Subscription();
   private loading: Loading;
 
-  searchInput: string = 'india';
+  searchInput: string = '';
 
   constructor(public navCtrl: NavController, private loadingCtrl: LoadingController,
     public navParams: NavParams, private spaceService: CoworkingmapProvider) {
   }
 
   OnInput(event: any) {
+    let tempSpace = this.spaceService.getCitites();
     let inputValue = event.target.value;
-    // console.log(inputValue);
+    if (inputValue && inputValue.trim() !== '') {
+      this.spaces = tempSpace.filter(item => {
+        return (item.toString().toLowerCase().indexOf(inputValue.toLowerCase()) > -1)
+      });
+    }
   }
 
   OnCancel(event: any) {
-
+    this.spaces = this.spaceService.getCitites();
   }
+
+  searchByCity(city: string) {
+    let space = {};
+    this.spaceService.getWorkingSpaceFilterByCity('india', city)
+      .subscribe(data => {
+        space = data
+      });
+  }
+
+  private loadDistinctCities(result) {
+    let temp = [];
+    result.filter(item => {
+      if (temp.indexOf(item.city) == -1)
+        temp.push(item.city);
+    });
+    return temp;
+  }
+
 
   ionViewWillEnter() {
     this.loading = this.loadingCtrl.create({
-      content: 'Loading places...'
+      content: 'Loading cities...'
     });
     this.loading.present();
 
@@ -41,7 +65,9 @@ export class SpacePage {
       this.spaceSubscription = this.spaceService.getWorkingSpaceFilterByCountry('India')
         .subscribe(result => {
           this.loading.dismiss().then(data => {
-            this.spaces = result;
+            this.spaces = this.loadDistinctCities(result);
+            this.spaceService.setCities(this.spaces);
+            // this.cities = result;
           })
         });
     } else {
@@ -50,7 +76,9 @@ export class SpacePage {
         this.spaceSubscription = this.spaceService.getWorkingSpaceFilterByCountry('India')
           .subscribe(result => {
             this.loading.dismiss().then(data => {
-              this.spaces = result;
+              this.spaces = this.loadDistinctCities(result);
+              this.spaceService.setCities(this.spaces);
+              // this.cities = result;
             })
           });
       });

@@ -12,6 +12,7 @@ import { user_config } from './coworkingmap.config';
 export class CoworkingmapProvider {
   url: string = 'https://coworkingmap.org/wp-json/jwt-auth/v1/token/';
   private token: string;
+  private cities: any[];
   constructor(private http: Http) { }
 
   /**
@@ -36,7 +37,23 @@ export class CoworkingmapProvider {
     let url = `https://coworkingmap.org/wp-json/spaces/${countryName.toLowerCase()}/${cityName.toLowerCase()}`;
     let header = new Headers();
     header.append('Authorization', `Bearer ${this.token}`);
-    return this.http.get(url).map(this.extractData).catch(this.handleError);
+    let options = new RequestOptions({ headers: header });
+    return this.http.get(url, options).map(this.extractData).catch(this.handleError);
+  }
+
+
+  /**
+   * Set Cities
+   */
+  setCities(value: any[]) {
+    this.cities = value;
+  }
+
+  /**
+   * Get Cities
+   */
+  getCitites() {
+    return this.cities;
   }
 
   /**
