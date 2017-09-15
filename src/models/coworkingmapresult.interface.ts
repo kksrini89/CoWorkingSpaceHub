@@ -1,9 +1,13 @@
 import { ResultMap } from './coworkingmapresult.interface';
 
-export interface CoWorkingSpace {
+export interface CoWorkingSpaceResult {
     ID: number;
+    country: string;
     city: string;
     map: ResultMap,
+    description: string;
+    logo: string;
+    "cover-photo": string;
     name: string;
     slug: string;
     site: string;

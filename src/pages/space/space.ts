@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, LoadingController, Loading, IonicPage } from 'ionic-angular';
 
-// import { CoWorkingSpace } from './../../models/coworkingmapresult.interface';
+import { CoWorkingSpaceResult } from './../../models/coworkingmapresult.interface';
 import { CoworkingmapProvider } from './../../providers/coworkingmap';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -37,7 +37,7 @@ export class SpacePage {
   }
 
   searchByCity(city: string) {
-    let space = {};
+    let space: CoWorkingSpaceResult[];
     this.spaceService.getWorkingSpaceFilterByCity('india', city)
       .subscribe(data => {
         space = data
