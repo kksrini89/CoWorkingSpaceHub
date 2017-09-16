@@ -1,3 +1,4 @@
+import { CoWorkingSpaceResult } from './../models/coworkingmapresult.interface';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http'; //URLSearchParams
 import { Observable } from 'rxjs/Observable';
@@ -35,6 +36,18 @@ export class CoworkingmapProvider {
    */
   getWorkingSpaceFilterByCity(countryName: string, cityName: string): Observable<any[]> {
     let url = `https://coworkingmap.org/wp-json/spaces/${countryName.toLowerCase()}/${cityName.toLowerCase()}`;
+    let header = new Headers();
+    header.append('Authorization', `Bearer ${this.token}`);
+    let options = new RequestOptions({ headers: header });
+    return this.http.get(url, options).map(this.extractData).catch(this.handleError);
+  }
+
+  /**
+   * Get selected working space details
+   * @param spaceName string
+   */
+  getWorkingSpaceDetail(country: string, city: string, spaceName: string): Observable<CoWorkingSpaceResult> {
+    let url = `https://coworkingmap.org/wp-json/spaces/${country.toLowerCase()}/${city.toLowerCase()}/${spaceName}`;
     let header = new Headers();
     header.append('Authorization', `Bearer ${this.token}`);
     let options = new RequestOptions({ headers: header });

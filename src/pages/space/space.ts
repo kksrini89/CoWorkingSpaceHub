@@ -37,10 +37,17 @@ export class SpacePage {
   }
 
   searchByCity(city: string) {
-    let space: CoWorkingSpaceResult[];
+    let spaces: CoWorkingSpaceResult[];
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading spaces...'
+    });
+    this.loading.present();
     this.spaceService.getWorkingSpaceFilterByCity('india', city)
       .subscribe(data => {
-        space = data
+        spaces = data;
+        this.loading.dismiss().then(data => {
+          this.navCtrl.push('SpacebycityPage', { 'selectedCountry': 'india', 'selectedCity': city, 'spaces': spaces });
+        })
       });
   }
 
