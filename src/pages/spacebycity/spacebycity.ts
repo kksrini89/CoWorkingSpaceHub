@@ -31,6 +31,7 @@ export class SpacebycityPage {
         this.loading.dismiss().then(result => {
           //space detail page
           console.log(data);
+          this.navCtrl.push('SpacedetailPage', { 'space-detail': data });
         })
       })
   }

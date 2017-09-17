@@ -1,13 +1,13 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{selectedCity}} - CoWorking Space</ion-title>
+    <ion-title>{{selectedCity}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding> 
 
   <ion-card *ngFor="let space of spaces" (click)="GetSpaceDetail(space)">
     <!-- <ion-card-header>
@@ -17,6 +17,6 @@
       {{space.name}}
       <!-- <span item-left><a href="{{space.site}}"></a></span> -->
     </ion-card-content>
-  </ion-card> 
+  </ion-card>
 
 </ion-content>

@@ -1,0 +1,22 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{spaceDetail.name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <img [src]="spaceDetail['cover-photo']" />
+    <ion-card-content>
+      <ion-card-title>
+        <a href="{{spaceDetail.site}}">Site</a>
+      </ion-card-title>
+      <p>
+        {{spaceDetail.description}}
+      </p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
