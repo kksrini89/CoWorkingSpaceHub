@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 @Component({
   templateUrl: 'app.html',
-  styles:[`
+  styles: [`
   .fixed-content:{
 background-color:#424242;
   }
@@ -16,15 +16,15 @@ export class MyApp {
 
   rootPage: any = 'SpacePage';
 
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any, icon: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Space', component: 'SpacePage' },
-      { title: 'About', component: 'AboutPage' }
+      { title: 'Space', component: 'SpacePage', icon: 'planet' },
+      { title: 'About', component: 'AboutPage', icon: 'contact' }
     ];
 
   }
