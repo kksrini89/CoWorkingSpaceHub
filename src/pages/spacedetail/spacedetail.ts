@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { CoWorkingSpaceResult } from './../../models/coworkingmapresult.interface';
 
@@ -14,6 +15,10 @@ export class SpacedetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.spaceDetail = this.navParams.get('space-detail');
     console.log(this.spaceDetail);
+  }
+
+  ShareViaWhatsapp(detail: CoWorkingSpaceResult) {
+    console.log(detail);
   }
 
   ionViewDidLoad() {
