@@ -54,8 +54,9 @@ export class SpacePage {
   private loadDistinctCities(result) {
     let temp = [];
     result.filter(item => {
-      if (temp.indexOf(item.city) == -1)
-        temp.push(item.city);
+      let tempCapital = item.city.substr(0, 1).toUpperCase() + item.city.substr(1).toLowerCase();
+      if (temp.indexOf(tempCapital) == -1)
+        temp.push(tempCapital);
     });
     return temp;
   }
