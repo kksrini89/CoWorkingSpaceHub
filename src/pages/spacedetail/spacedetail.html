@@ -12,8 +12,12 @@
     <img [src]="spaceDetail['cover-photo']" />
     <ion-card-content>
       <ion-card-title>
-        <span item-start></span><a href="{{spaceDetail.site}}">Site</a>
-        <span item-end><button ion-button clear (click)="ShareViaWhatsapp(spaceDetail)">Whatsapp</button></span>
+        <div>
+          <span float-left><a href="{{spaceDetail.site}}">Site</a></span>
+          <span float-right>
+          <a ion-button clear icon-only (click)="ShareViaWhatsapp(spaceDetail)">
+            <i class="fa fa-whatsapp"></i></a></span>
+        </div>
       </ion-card-title>
       <p>
         {{spaceDetail.description}}

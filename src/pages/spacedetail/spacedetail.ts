@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { CoWorkingSpaceResult } from './../../models/coworkingmapresult.interface';
@@ -12,9 +12,18 @@ import { CoWorkingSpaceResult } from './../../models/coworkingmapresult.interfac
 export class SpacedetailPage {
 
   spaceDetail: CoWorkingSpaceResult;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private socialShare: SocialSharing, private toastCtrl: ToastController) {
     this.spaceDetail = this.navParams.get('space-detail');
-    console.log(this.spaceDetail);
+    this.socialShare.shareViaWhatsApp(this.spaceDetail.map.address, this.spaceDetail.logo, null)
+      .then(result => {
+        let toast = this.toastCtrl.create({
+          message: 'Shared the location!',
+          duration: 3000,
+          position: 'bottom'
+        });
+        toast.present();
+      });
+    // console.log(this.spaceDetail);
   }
 
   ShareViaWhatsapp(detail: CoWorkingSpaceResult) {
