@@ -1,6 +1,6 @@
 {
   "name": "WorkingSpaceHub",
-  "app_id": "",
+  "app_id": "1b0425d7",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

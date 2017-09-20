@@ -12,16 +12,35 @@
     <img [src]="spaceDetail['cover-photo']" />
     <ion-card-content>
       <ion-card-title>
-        <div>
-          <span float-left><a href="{{spaceDetail.site}}">Site</a></span>
-          <span float-right>
-          <a ion-button clear icon-only (click)="ShareViaWhatsapp(spaceDetail)">
-            <i class="fa fa-whatsapp"></i></a></span>
+
+        <ion-row center>
+          <ion-col width="80">
+            <a href="{{spaceDetail.site}}">Site</a>
+          </ion-col>
+          <ion-col width="20">
+            <span float-right (click)="ShareViaWhatsapp(spaceDetail)">
+                  <i class="fa fa-whatsapp"></i>
+            </span>
+          </ion-col>
+        </ion-row>
+
+        <!-- <span float-left><b>{{spaceDetail.site}}</b></span>
+        <span float-right>
+          <button clear small (click)="ShareViaWhatsapp(spaceDetail)">
+              <i class="fa fa-whatsapp"></i>
+          </button>
+        </span> -->
+        <!-- <div class="side">
+          <a href="{{spaceDetail.site}}">Site</a>
         </div>
+        <div class="side">
+          <a ion-button clear icon-only (click)="ShareViaWhatsapp(spaceDetail)">
+          <i class="fa fa-whatsapp"></i></a>
+        </div> -->
       </ion-card-title>
-      <p>
+      <div>
         {{spaceDetail.description}}
-      </p>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

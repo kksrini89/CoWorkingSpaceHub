@@ -14,6 +14,11 @@ export class SpacedetailPage {
   spaceDetail: CoWorkingSpaceResult;
   constructor(public navCtrl: NavController, public navParams: NavParams, private socialShare: SocialSharing, private toastCtrl: ToastController) {
     this.spaceDetail = this.navParams.get('space-detail');
+    // console.log(this.spaceDetail);
+  }
+
+  ShareViaWhatsapp(detail: CoWorkingSpaceResult) {
+    console.log(detail);
     this.socialShare.shareViaWhatsApp(this.spaceDetail.map.address, this.spaceDetail.logo, null)
       .then(result => {
         let toast = this.toastCtrl.create({
@@ -23,11 +28,6 @@ export class SpacedetailPage {
         });
         toast.present();
       });
-    // console.log(this.spaceDetail);
-  }
-
-  ShareViaWhatsapp(detail: CoWorkingSpaceResult) {
-    console.log(detail);
   }
 
   ionViewDidLoad() {
