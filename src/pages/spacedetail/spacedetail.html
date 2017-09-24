@@ -15,7 +15,8 @@
 
         <ion-row center>
           <ion-col width="80">
-            <a href="{{spaceDetail.site}}">Site</a>
+            <!-- <a href="{{spaceDetail.site}}">Site</a> -->
+            <span>Share</span>
           </ion-col>
           <ion-col width="20">
             <span float-right (click)="ShareViaWhatsapp(spaceDetail)">
@@ -43,4 +44,8 @@
       </div>
     </ion-card-content>
   </ion-card>
+
+
+  <div id="map" padding></div>
+
 </ion-content>
