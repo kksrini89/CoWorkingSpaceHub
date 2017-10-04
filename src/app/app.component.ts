@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
+import { SpacePage } from "../pages/space/space";
+
 @Component({
   templateUrl: 'app.html',
   styles: [`
@@ -15,7 +17,7 @@ background-color:#424242;
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'SpacePage';
+  rootPage: any = SpacePage;
 
   pages: Array<{ title: string, component: any, icon: any }>;
 
@@ -25,7 +27,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Space', component: 'SpacePage', icon: 'planet' },
+      { title: 'Space', component: SpacePage, icon: 'planet' },
       { title: 'About', component: 'AboutPage', icon: 'contact' }
     ];
 
@@ -37,7 +39,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     });
   }
 

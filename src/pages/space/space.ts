@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, Loading, IonicPage } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 
 import { CoWorkingSpaceResult } from './../../models/coworkingmapresult.interface';
 import { CoworkingmapProvider } from './../../providers/coworkingmap';
 import { Subscription } from 'rxjs/Subscription';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-space',
   templateUrl: 'space.html',

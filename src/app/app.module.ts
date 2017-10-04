@@ -1,3 +1,4 @@
+import { SpacePage } from './../pages/space/space';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -13,7 +14,8 @@ import { CoworkingmapProvider } from '../providers/coworkingmap';
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    SpacePage
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,8 @@ import { CoworkingmapProvider } from '../providers/coworkingmap';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    SpacePage
   ],
   providers: [
     StatusBar,
