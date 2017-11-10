@@ -9,8 +9,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { GoogleMaps } from "@ionic-native/google-maps";
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
+// import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { CoworkingmapProvider } from '../providers/coworkingmap';
+import { Network } from '@ionic-native/network';
 
 @NgModule({
   declarations: [
@@ -32,8 +33,8 @@ import { CoworkingmapProvider } from '../providers/coworkingmap';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     GoogleMaps,
-    SocialSharing,
-    ScreenOrientation,
+    SocialSharing,    
+    Network,
     CoworkingmapProvider
   ]
 })

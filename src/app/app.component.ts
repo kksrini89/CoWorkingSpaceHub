@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
+// import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { Network } from '@ionic-native/network';
 
 import { SpacePage } from "../pages/space/space";
 
@@ -22,7 +23,8 @@ export class MyApp {
   pages: Array<{ title: string, component: any, icon: any }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar,
-    public splashScreen: SplashScreen, private screenOrientation: ScreenOrientation) {
+    public splashScreen: SplashScreen,
+    private network: Network, private toast: ToastController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -39,6 +41,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.network.onConnect().subscribe(() => {
+        let toast = this.toast.create({
+          message: `Connected via ${this.network.type}`,
+          position: 'bottom',
+          duration: 3000
+        });
+        toast.present();
+      });
       // this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
     });
   }

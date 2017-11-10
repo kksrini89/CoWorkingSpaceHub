@@ -17,8 +17,13 @@ export class SpacedetailPage {
   map: GoogleMap;
   mapElement: HTMLElement;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private socialShare: SocialSharing, private toastCtrl: ToastController, private googleMaps: GoogleMaps) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private socialShare: SocialSharing, private toastCtrl: ToastController,
+    private googleMaps: GoogleMaps) {
     this.spaceDetail = this.navParams.get('space-detail');
+    console.log(this.spaceDetail);
+  }
+
+  ionViewDidEnter() {
     this.locateSpaceInMap(this.spaceDetail.map);
   }
 
@@ -27,8 +32,8 @@ export class SpacedetailPage {
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: loc.lat,
-          lng: loc.lng
+          lat: +loc.lat,
+          lng: +loc.lng
         },
         zoom: 18,
         tilt: 30
@@ -48,8 +53,8 @@ export class SpacedetailPage {
           icon: 'blue',
           animation: 'DROP',
           position: {
-            lat: loc.lat,
-            lng: loc.lng
+            lat: +loc.lat,
+            lng: +loc.lng
           }
         })
           .then(marker => {
