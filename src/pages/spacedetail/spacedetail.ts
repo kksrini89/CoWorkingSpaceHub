@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import {
-  GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions
-} from '@ionic-native/google-maps';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { CoWorkingSpaceResult, ResultMap } from './../../models/coworkingmapresult.interface';
+
+declare var google:any;
 
 @IonicPage()
 @Component({
@@ -14,60 +13,56 @@ import { CoWorkingSpaceResult, ResultMap } from './../../models/coworkingmapresu
 })
 export class SpacedetailPage {
   spaceDetail: CoWorkingSpaceResult;
-  map: GoogleMap;
-  mapElement: HTMLElement;
+  @ViewChild('map') mapElement: ElementRef;
+  map:any;
+  marker:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private socialShare: SocialSharing, private toastCtrl: ToastController,
-    private googleMaps: GoogleMaps) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private socialShare: SocialSharing, private toastCtrl: ToastController) {
     this.spaceDetail = this.navParams.get('space-detail');
-    console.log(this.spaceDetail);
   }
 
-  ionViewDidEnter() {
+  ionViewDidEnter(): void {
     this.locateSpaceInMap(this.spaceDetail.map);
   }
 
-  locateSpaceInMap(loc: ResultMap) {
-    this.mapElement = document.getElementById('map');
-    let mapOptions: GoogleMapOptions = {
-      camera: {
-        target: {
-          lat: +loc.lat,
-          lng: +loc.lng
-        },
-        zoom: 18,
-        tilt: 30
-      }
-    };
+  ionViewDidLoad():void {
 
-    this.map = this.googleMaps.create(this.mapElement, mapOptions);
-    this.map.setMapTypeId('MAP_TYPE_NORMAL');
-    // Wait the MAP_READY before using any methods.
-    this.map.one(GoogleMapsEvent.MAP_READY)
-      .then(() => {
-        console.log('Map is ready!');
-
-        // Now you can use all methods safely.
-        this.map.addMarker({
-          title: this.spaceDetail.name,
-          icon: 'blue',
-          animation: 'DROP',
-          position: {
-            lat: +loc.lat,
-            lng: +loc.lng
-          }
-        })
-          .then(marker => {
-            marker.on(GoogleMapsEvent.MARKER_CLICK)
-              .subscribe(() => {
-                alert('clicked');
-              });
-          });
-      });
   }
 
-  ShareViaWhatsapp(detail: CoWorkingSpaceResult) {
-    console.log(detail);
+  /**
+   * Loading Google Map
+   * @param loc ResultMap
+   */
+  locateSpaceInMap(loc: ResultMap): void {
+    let latlng = new google.maps.LatLng(+loc.lat, +loc.lng);
+    let mapOptions = {
+      center: latlng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+    this.marker = new google.maps.Marker({
+      position: latlng,
+      map: this.map,
+      title: this.spaceDetail.name,
+      animation: google.maps.Animation.DROP
+    });
+    this.marker.addListener('click',this.toggleBounce);
+  }
+
+  private toggleBounce(): void {
+    if (this.marker.getAnimation() !== null) {
+      this.marker.setAnimation(null);
+    } else {
+      this.marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
+  /**
+   * Share CoWorkSpace details to user
+   * @param detail CoWorkingSpaceResult
+   */
+  ShareViaWhatsapp(detail: CoWorkingSpaceResult): void {
     this.socialShare.shareViaWhatsApp(this.spaceDetail.name + "\n" + this.spaceDetail.map.address, this.spaceDetail.logo, null)
       .then(result => {
         let toast = this.toastCtrl.create({
@@ -78,9 +73,4 @@ export class SpacedetailPage {
         toast.present();
       });
   }
-
-  ionViewDidLoad() {
-    //console.log('ionViewDidLoad SpacedetailPage');
-  }
-
 }

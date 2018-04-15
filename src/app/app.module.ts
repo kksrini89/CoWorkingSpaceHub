@@ -6,7 +6,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
-import { GoogleMaps } from "@ionic-native/google-maps";
+// import { GoogleMaps } from "@ionic-native/google-maps";
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SocialSharing } from '@ionic-native/social-sharing';
 // import { ScreenOrientation } from '@ionic-native/screen-orientation';
@@ -32,8 +32,8 @@ import { Network } from '@ionic-native/network';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    GoogleMaps,
-    SocialSharing,    
+    // GoogleMaps,
+    SocialSharing,
     Network,
     CoworkingmapProvider
   ]
